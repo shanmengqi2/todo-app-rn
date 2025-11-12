@@ -22,6 +22,7 @@ export default function Index() {
 
   const todos = useQuery(api.todos.getTodos);
   const toggleTodo = useMutation(api.todos.toggleTodo);
+  const deleteTodo = useMutation(api.todos.deleteTodo)
 
   const isLoading = todos === undefined;
   if (isLoading) return <LoadingSpinner />;
@@ -35,13 +36,16 @@ export default function Index() {
     }
   }
 
+  const handleDeleteTodo = async (id: Id<"todos">) => {
+    Alert.alert("Delete Todo", "Are you sure?", [
+      { text: "Cancel", style: "cancel" },
+      { text: "Delete", style: "destructive", onPress: () => deleteTodo({ id }) },
+    ])
+  }
+
   const renderTodoItem = ({ item }: { item: Todo }) => {
 
     function handleEditTodo(item: { _id: GenericId<"todos">; _creationTime: number; text: string; isCompleted: boolean; }): void {
-      throw new Error("Function not implemented.");
-    }
-
-    function handleDeleteTodo(_id: GenericId<"todos">): void {
       throw new Error("Function not implemented.");
     }
 
